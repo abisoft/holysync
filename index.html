@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///Users/mizuhotakahashi/Downloads/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HolySync — Faith Explorer</title>
+  <link href="./index_files/css2" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:#E8E4DC;font-family:'Inter','Noto Sans JP',sans-serif;}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:22px 40px;}
+    .logo{font-size:17px;font-weight:700;color:#1a1a1a;letter-spacing:-0.3px;}
+    .logo span{font-style:italic;font-weight:900;}
+    .logo-mark{width:36px;height:36px;background:#1a1a1a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#E8E4DC;font-weight:900;flex-shrink:0;}
+    .logo{display:flex;align-items:center;gap:10px;}
+    .logo-name{font-size:17px;font-weight:700;color:#1a1a1a;letter-spacing:-0.3px;}
+    .lang-switcher{display:flex;gap:4px;background:#ddd8ce;border-radius:20px;padding:3px;}
+    .lang-btn{font-size:12px;font-weight:500;padding:5px 14px;border-radius:16px;border:none;background:transparent;color:#888;cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;transition:all 0.2s;}
+    .lang-btn.active{background:#1a1a1a;color:#E8E4DC;}
+    .lang-btn:hover:not(.active){color:#1a1a1a;}
+    .hero{padding:60px 40px 16px;}
+    .hero h1{font-size:72px;font-weight:900;line-height:1.0;letter-spacing:-3px;color:#1a1a1a;margin-bottom:20px;max-width:700px;}
+    .hero h1 em{font-style:italic;font-family:"Lora",serif;}
+    .hero-desc{font-size:15px;color:#777;max-width:460px;line-height:1.7;margin-bottom:32px;}
+    .search-row{display:flex;gap:0;max-width:580px;background:#fff;border-radius:50px;overflow:hidden;border:1.5px solid #d0cbc2;}
+    .search-row input{flex:1;padding:13px 22px;font-size:15px;background:transparent;border:none;color:#1a1a1a;outline:none;font-family:'Inter','Noto Sans JP',sans-serif;}
+    .search-row input::placeholder{color:#bbb;}
+    .search-btn{padding:11px 22px;margin:3px;background:#1a1a1a;border:none;color:#E8E4DC;font-size:13px;font-weight:600;cursor:pointer;border-radius:50px;font-family:'Inter','Noto Sans JP',sans-serif;white-space:nowrap;}
+    .search-btn:hover{background:#333;}
+    .search-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .pills{display:flex;flex-wrap:wrap;gap:6px;padding:8px 40px 80px;align-items:center;}
+    .pill-label{font-size:11px;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-right:6px;}
+    .pill{font-size:12px;padding:5px 14px;border:1.5px solid #ccc;border-radius:20px;background:transparent;color:#888;cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;}
+    .pill:hover{border-color:#1a1a1a;color:#1a1a1a;}
+    .section-label{padding:0 40px;margin-bottom:16px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#aaa;}
+    .section-q{font-style:italic;color:#555;font-weight:400;font-size:13px;letter-spacing:0;text-transform:none;margin-left:8px;}
+    .section-label-sm{padding:0 40px;margin-bottom:16px;margin-top:80px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#aaa;}
+    .cards-wrap{padding:0 40px 60px;}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .card{border-radius:20px;padding:26px 24px 32px;min-height:100px;}
+    .card-name{font-size:20px;font-weight:700;margin-bottom:24px;color:#1a1a1a;}
+    .card-body{font-size:13px;line-height:1.5;color:#222222;opacity:1;}
+    .card-body.empty{opacity:0.35;font-style:italic;}
+    .card-1{background:#8EAF5A;} .card-1 .card-name{color:#1E3A08;}
+    .card-2{background:#D4C84A;} .card-2 .card-name{color:#4A4000;}
+    .card-3{background:#9B8FD4;} .card-3 .card-name{color:#1E1050;}
+    .card-4{background:#E05C5C;} .card-4 .card-name{color:#500808;}
+    .card-5{background:#E8956A;} .card-5 .card-name{color:#501E04;}
+    .card-sim{background:#D8D4CC;} .card-sim .card-name{color:#2a2a2a;}
+    .card-dif{background:#D8D4CC;} .card-dif .card-name{color:#2a2a2a;}
+    .bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .sk{border-radius:6px;animation:pulse 1.3s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    .sk-line{height:10px;margin-bottom:9px;}
+    .sk-dark{background:rgba(0,0,0,0.15);}
+    .err{margin:0 40px 20px;padding:16px 20px;background:#FDE8E8;border:1.5px solid #F0B0B0;border-radius:16px;font-size:13px;color:#8B1A1A;}
+    .err-title{font-weight:700;margin-bottom:3px;}
+    .err-detail{font-family:monospace;font-size:11px;margin-top:6px;opacity:0.7;word-break:break-all;}
+    @media(max-width:700px){
+      .cards{grid-template-columns:1fr 1fr;}
+      .hero h1{font-size:44px;letter-spacing:-2px;}
+      .hero,.cards-wrap,.pills,.section-label,.section-label-sm{padding-left:20px;padding-right:20px;}
+      .nav{padding:16px 20px;}
+      .bottom-row{grid-template-columns:1fr;}
+      .section-label-sm{margin-top:48px;}
+    }
+    @media(max-width:480px){.cards{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">
+      <div class="logo-mark">∞</div>
+      <span class="logo-name"><span>Holy</span>Sync</span>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang(&#39;en&#39;)">EN</button>
+      <button class="lang-btn" onclick="setLang(&#39;ja&#39;)">日本語</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>One question,<br><em>all</em> the answers.</h1>
+    <p class="hero-desc">Ask anything about life, meaning, or belief — see how the world's great religious traditions each respond, side by side.</p>
+    <div class="search-row">
+      <input type="text" id="q" maxlength="300" placeholder="e.g. What happens after we die?">
+      <button class="search-btn" id="btn" onclick="compare()">Sync</button>
+    </div>
+  </div>
+
+  <div class="pills">
+    <span class="pill-label" id="tryLabel">Try</span>
+    <span class="pill" id="pill1" onclick="ask(t(&#39;pill1&#39;))">Purpose of life</span>
+    <span class="pill" id="pill2" onclick="ask(t(&#39;pill2&#39;))">Treat others</span>
+    <span class="pill" id="pill3" onclick="ask(t(&#39;pill3&#39;))">After death</span>
+    <span class="pill" id="pill4" onclick="ask(t(&#39;pill4&#39;))">Prayer</span>
+    <span class="pill" id="pill5" onclick="ask(t(&#39;pill5&#39;))">Inner peace</span>
+  </div>
+
+  <div id="errBox" style="display:none" class="err">
+    <div class="err-title" id="errTitle"></div>
+    <div id="errMsg"></div>
+    <div class="err-detail" id="errDetail"></div>
+  </div>
+
+  <div class="section-label"><span id="traditionsLabel">Traditions</span><span class="section-q" id="sectionQ"></span></div>
+  <div class="cards-wrap">
+    <div id="religionCards"><div class="cards"><div class="card card-1">
+          <div class="card-name">Christianity</div>
+          <div class="card-body empty">Ask a question to explore</div>
+        </div><div class="card card-2">
+          <div class="card-name">Islam</div>
+          <div class="card-body empty">Ask a question to explore</div>
+        </div><div class="card card-3">
+          <div class="card-name">Judaism</div>
+          <div class="card-body empty">Ask a question to explore</div>
+        </div><div class="card card-4">
+          <div class="card-name">Hinduism</div>
+          <div class="card-body empty">Ask a question to explore</div>
+        </div><div class="card card-5">
+          <div class="card-name">Buddhism</div>
+          <div class="card-body empty">Ask a question to explore</div>
+        </div></div></div>
+  </div>
+  <div class="section-label" id="insightsLabel" style="margin-top:28px;margin-bottom:16px;">Insights</div>
+  <div class="cards-wrap" style="padding-top:0;">
+    <div id="insightCards"><div class="bottom-row"><div class="card card-sim"><div class="card-name">Similarities</div><div class="card-body empty">What the traditions share</div></div><div class="card card-dif"><div class="card-name">Differences</div><div class="card-body empty">Where they diverge</div></div></div></div>
+  </div>
+
+  <script>
+    const STRINGS = {
+      en: {
+        placeholder: 'e.g. What happens after we die?',
+        syncBtn: 'Sync', syncingBtn: 'Syncing…',
+        tryLabel: 'Try',
+        pill1: 'What is the purpose of life?',        pill1Label: 'Purpose of life',
+        pill2: 'How should we treat others?',          pill2Label: 'Treat others',
+        pill3: 'What happens after we die?',           pill3Label: 'After death',
+        pill4: 'What is prayer?',                      pill4Label: 'Prayer',
+        pill5: 'How do we find inner peace?',          pill5Label: 'Inner peace',
+        traditionsLabel: 'Traditions',
+        insightsLabel: 'Insights',
+        similarities: 'Similarities', differences: 'Differences',
+        emptyTradition: 'Ask a question to explore',
+        emptySimilarities: 'What the traditions share',
+        emptyDifferences: 'Where they diverge',
+        syncing: 'syncing…',
+        networkErr: 'Network error',     networkErrMsg: 'Could not reach the worker.',
+        parseErr: 'Parse error',         parseErrMsg: 'Could not read AI response.',
+        apiErr: 'API error',             httpErr: 'Worker error',
+        // System prompt: force English answers
+        systemPrompt: 'You are a neutral religion educator. The user may ask in any language, but you MUST respond entirely in English. Return ONLY raw JSON — no markdown, no backticks — with exactly these keys: christianity, islam, judaism, hinduism, buddhism, similarities, differences. Max 80 words per key.',
+      },
+      ja: {
+        placeholder: '例：死後、人はどうなるのか？',
+        syncBtn: '比較する', syncingBtn: '読み込み中…',
+        tryLabel: '試す',
+        pill1: '人生の目的とは何ですか？',             pill1Label: '人生の目的',
+        pill2: '他者をどのように扱うべきですか？',     pill2Label: '他者への接し方',
+        pill3: '死後、人はどうなりますか？',           pill3Label: '死後の世界',
+        pill4: '祈りとは何ですか？',                   pill4Label: '祈り',
+        pill5: '内なる平和をどのように見つけますか？', pill5Label: '心の平和',
+        traditionsLabel: '宗教の教え',
+        insightsLabel: '考察',
+        similarities: '共通点', differences: '相違点',
+        emptyTradition: '質問を入力してください',
+        emptySimilarities: '各宗教の共通点',
+        emptyDifferences: '各宗教の違い',
+        syncing: '読み込み中…',
+        networkErr: 'ネットワークエラー',  networkErrMsg: 'サーバーに接続できませんでした。',
+        parseErr: '解析エラー',            parseErrMsg: 'AIの応答を読み込めませんでした。',
+        apiErr: 'APIエラー',              httpErr: 'サーバーエラー',
+        // System prompt: force Japanese answers regardless of question language
+        systemPrompt: 'あなたは中立的な宗教教育者です。ユーザーがどの言語で質問しても、必ず日本語で回答してください。マークダウンやバッククォートなしで、以下のキーを持つ生のJSONのみを返してください：christianity, islam, judaism, hinduism, buddhism, similarities, differences。各フィールドは最大80語。必ず日本語で回答すること。',
+      }
+    };
+
+    let currentLang = 'en';
+    function t(key){ return STRINGS[currentLang][key] || STRINGS['en'][key]; }
+
+    const RELIGIONS = [
+      {key:'christianity', nameEn:'Christianity', nameJa:'キリスト教',   card:'card-1'},
+      {key:'islam',        nameEn:'Islam',         nameJa:'イスラム教',   card:'card-2'},
+      {key:'judaism',      nameEn:'Judaism',        nameJa:'ユダヤ教',    card:'card-3'},
+      {key:'hinduism',     nameEn:'Hinduism',       nameJa:'ヒンドゥー教',card:'card-4'},
+      {key:'buddhism',     nameEn:'Buddhism',       nameJa:'仏教',        card:'card-5'},
+    ];
+    function rName(r){ return currentLang==='ja' ? r.nameJa : r.nameEn; }
+
+    const WORKER_URL = 'https://religion-compare.mzhabj.workers.dev';
+
+    function setLang(lang){
+      currentLang = lang;
+      document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      applyStrings();
+      renderEmpty();
+    }
+
+    function applyStrings(){
+      document.getElementById('q').placeholder        = t('placeholder');
+      document.getElementById('btn').textContent      = t('syncBtn');
+      document.getElementById('tryLabel').textContent  = t('tryLabel');
+      document.getElementById('pill1').textContent    = t('pill1Label');
+      document.getElementById('pill2').textContent    = t('pill2Label');
+      document.getElementById('pill3').textContent    = t('pill3Label');
+      document.getElementById('pill4').textContent    = t('pill4Label');
+      document.getElementById('pill5').textContent    = t('pill5Label');
+      document.getElementById('traditionsLabel').textContent = t('traditionsLabel');
+      document.getElementById('insightsLabel').textContent   = t('insightsLabel');
+      document.getElementById('sectionQ').textContent = '';
+    }
+
+    function ask(q){ document.getElementById('q').value=q; compare(); }
+    function showErr(ti,m,d){ document.getElementById('errTitle').textContent=ti; document.getElementById('errMsg').textContent=m; document.getElementById('errDetail').textContent=d||''; document.getElementById('errBox').style.display='block'; }
+    function hideErr(){ document.getElementById('errBox').style.display='none'; }
+    function skelCard(){ return `<div class="sk sk-dark sk-line" style="width:40%;margin-bottom:14px"></div><div class="sk sk-dark sk-line" style="width:92%"></div><div class="sk sk-dark sk-line" style="width:76%"></div><div class="sk sk-dark sk-line" style="width:84%"></div>`; }
+
+    function renderEmpty(){
+      document.getElementById('sectionQ').textContent='';
+      document.getElementById('religionCards').innerHTML=
+        '<div class="cards">'+RELIGIONS.map(r=>`<div class="card ${r.card}">
+          <div class="card-name">${rName(r)}</div>
+          <div class="card-body empty">${t('emptyTradition')}</div>
+        </div>`).join('')+'</div>';
+      document.getElementById('insightCards').innerHTML=
+        '<div class="bottom-row">'+
+          `<div class="card card-sim"><div class="card-name">${t('similarities')}</div><div class="card-body empty">${t('emptySimilarities')}</div></div>`+
+          `<div class="card card-dif"><div class="card-name">${t('differences')}</div><div class="card-body empty">${t('emptyDifferences')}</div></div>`+
+        '</div>';
+    }
+
+    function showSkeletons(){
+      document.getElementById('sectionQ').textContent=t('syncing');
+      document.getElementById('religionCards').innerHTML='<div class="cards">'+RELIGIONS.map(r=>`<div class="card ${r.card}">${skelCard()}</div>`).join('')+'</div>';
+      document.getElementById('insightCards').innerHTML='<div class="bottom-row"><div class="card card-sim">'+skelCard()+'</div><div class="card card-dif">'+skelCard()+'</div></div>';
+    }
+
+    function renderResults(data,q){
+      document.getElementById('sectionQ').textContent='— "'+q+'"';
+      document.getElementById('religionCards').innerHTML=
+        '<div class="cards">'+RELIGIONS.map(r=>`<div class="card ${r.card}" id="c-${r.key}">
+          <div class="card-name">${rName(r)}</div>
+          <div class="card-body"></div>
+        </div>`).join('')+'</div>';
+      document.getElementById('insightCards').innerHTML=
+        '<div class="bottom-row">'+
+          `<div class="card card-sim" id="c-similarities"><div class="card-name">${t('similarities')}</div><div class="card-body"></div></div>`+
+          `<div class="card card-dif" id="c-differences"><div class="card-name">${t('differences')}</div><div class="card-body"></div></div>`+
+        '</div>';
+      const items=[...RELIGIONS.map(r=>({id:'c-'+r.key,text:data[r.key]||''})),{id:'c-similarities',text:data.similarities||''},{id:'c-differences',text:data.differences||''}];
+      items.forEach((item,i)=>setTimeout(()=>{const el=document.getElementById(item.id);if(el)el.querySelector('.card-body').textContent=item.text;},i*120));
+    }
+
+    async function compare(){
+      const q=document.getElementById('q').value.trim();
+      if(!q){document.getElementById('q').focus();return;}
+      hideErr();
+      const btn=document.getElementById('btn');
+      btn.disabled=true; btn.textContent=t('syncingBtn');
+      showSkeletons();
+      try{
+        let res;
+        try{
+          res=await fetch(WORKER_URL,{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+              question: q,
+              systemPrompt: t('systemPrompt')
+            })
+          });
+        }catch(e){throw{title:t('networkErr'),msg:t('networkErrMsg'),detail:`${e.name}: ${e.message}`};}
+        if(!res.ok){const b=await res.text().catch(()=>'');throw{title:`HTTP ${res.status}`,msg:t('httpErr'),detail:b};}
+        const wd=await res.json();
+        if(wd.error)throw{title:t('apiErr'),msg:wd.error.message||'AI error',detail:JSON.stringify(wd.error,null,2)};
+        const raw=wd.content?.find(b=>b.type==='text')?.text||'';
+        const clean=raw.replace(/```[\w]*\n?/g,'').replace(/```/g,'').trim();
+        let parsed;
+        try{parsed=JSON.parse(clean);}catch(e){throw{title:t('parseErr'),msg:t('parseErrMsg'),detail:raw};}
+        renderResults(parsed,q);
+      }catch(e){
+        if(e.title)showErr(e.title,e.msg,e.detail);
+        else showErr('Error',e.message||'Unknown error','');
+        renderEmpty();
+      }finally{
+        btn.disabled=false; btn.textContent=t('syncBtn');
+      }
+    }
+
+    document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')compare();});
+    applyStrings();
+    renderEmpty();
+  </script>
+
+
+</body></html>
