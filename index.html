@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0050)file:///Users/mizuhotakahashi/Downloads/index.html -->
+<!-- saved from url=(0052)file:///Users/mizuhotakahashi/Downloads/index_3.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,23 +18,27 @@
     .lang-btn{font-size:12px;font-weight:500;padding:5px 14px;border-radius:16px;border:none;background:transparent;color:#888;cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;transition:all 0.2s;}
     .lang-btn.active{background:#1a1a1a;color:#E8E4DC;}
     .lang-btn:hover:not(.active){color:#1a1a1a;}
-    .hero{padding:60px 40px 16px;}
-    .hero h1{font-size:72px;font-weight:900;line-height:1.0;letter-spacing:-3px;color:#1a1a1a;margin-bottom:20px;max-width:700px;}
+    .hero{padding:60px 40px 16px;text-align:center;}
+    .hero h1{font-size:72px;font-weight:900;line-height:1.0;letter-spacing:-3px;color:#1a1a1a;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto;}
     .hero h1 em{font-style:italic;font-family:"Lora",serif;}
-    .hero-desc{font-size:15px;color:#777;max-width:460px;line-height:1.7;margin-bottom:32px;}
-    .search-row{display:flex;gap:0;max-width:580px;background:#fff;border-radius:50px;overflow:hidden;border:1.5px solid #d0cbc2;}
+    .hero-desc{font-size:15px;color:#595959;max-width:460px;line-height:1.7;margin-bottom:32px;margin:0 auto 32px;}
+    .search-row{display:flex;gap:0;max-width:580px;background:#fff;border-radius:50px;overflow:hidden;border:1.5px solid #d0cbc2;margin:0 auto;}
     .search-row input{flex:1;padding:13px 22px;font-size:15px;background:transparent;border:none;color:#1a1a1a;outline:none;font-family:'Inter','Noto Sans JP',sans-serif;}
     .search-row input::placeholder{color:#bbb;}
     .search-btn{padding:11px 22px;margin:3px;background:#1a1a1a;border:none;color:#E8E4DC;font-size:13px;font-weight:600;cursor:pointer;border-radius:50px;font-family:'Inter','Noto Sans JP',sans-serif;white-space:nowrap;}
     .search-btn:hover{background:#333;}
     .search-btn:disabled{opacity:0.5;cursor:not-allowed;}
-    .pills{display:flex;flex-wrap:wrap;gap:6px;padding:8px 40px 80px;align-items:center;}
-    .pill-label{font-size:11px;color:#aaa;letter-spacing:1px;text-transform:uppercase;margin-right:6px;}
-    .pill{font-size:12px;padding:5px 14px;border:1.5px solid #ccc;border-radius:20px;background:transparent;color:#888;cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;}
+    .search-btn:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;}
+    .lang-btn:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;}
+    .pill:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;}
+    .nav-btn:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;}
+    .pills{display:flex;flex-wrap:wrap;gap:6px;padding:8px 40px 80px;align-items:center;justify-content:center;}
+    .pill-label{font-size:11px;color:#767676;letter-spacing:1px;text-transform:uppercase;margin-right:6px;}
+    .pill{font-size:12px;padding:5px 14px;border:1.5px solid #999;border-radius:20px;background:transparent;color:#595959;cursor:pointer;font-family:'Inter','Noto Sans JP',sans-serif;}
     .pill:hover{border-color:#1a1a1a;color:#1a1a1a;}
-    .section-label{padding:0 40px;margin-bottom:16px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#aaa;}
-    .section-q{font-style:italic;color:#555;font-weight:400;font-size:13px;letter-spacing:0;text-transform:none;margin-left:8px;}
-    .section-label-sm{padding:0 40px;margin-bottom:16px;margin-top:80px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#aaa;}
+    .section-label{padding:0 40px;margin-bottom:16px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#767676;}
+    .section-q{font-style:italic;color:#595959;font-weight:400;font-size:13px;letter-spacing:0;text-transform:none;margin-left:8px;}
+    .section-label-sm{padding:0 40px;margin-bottom:16px;margin-top:80px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#767676;}
     .cards-wrap{padding:0 40px 60px;}
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
     .card{border-radius:20px;padding:26px 24px 32px;min-height:100px;}
@@ -68,23 +72,24 @@
   </style>
 </head>
 <body>
-  <nav class="nav">
+  <a href="file:///Users/mizuhotakahashi/Downloads/index_3.html#main-content" style="position:absolute;top:-40px;left:0;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:0 0 8px 0;font-size:13px;font-family:Inter,sans-serif;text-decoration:none;transition:top 0.2s;" onfocus="this.style.top=&#39;0&#39;" onblur="this.style.top=&#39;-40px&#39;">Skip to main content</a>
+<nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="logo">
       <div class="logo-mark">∞</div>
       <span class="logo-name"><span>Holy</span>Sync</span>
     </div>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang(&#39;en&#39;)">EN</button>
-      <button class="lang-btn" onclick="setLang(&#39;ja&#39;)">日本語</button>
+      <button class="lang-btn active" onclick="setLang(&#39;en&#39;)" aria-label="Switch to English">EN</button>
+      <button class="lang-btn" onclick="setLang(&#39;ja&#39;)" aria-label="Switch to Japanese">日本語</button>
     </div>
   </nav>
 
-  <div class="hero">
+  <main id="main-content"><div class="hero">
     <h1>One question,<br><em>all</em> the answers.</h1>
     <p class="hero-desc">Ask anything about life, meaning, or belief — see how the world's great religious traditions each respond, side by side.</p>
     <div class="search-row">
-      <input type="text" id="q" maxlength="300" placeholder="e.g. What happens after we die?">
-      <button class="search-btn" id="btn" onclick="compare()">Sync</button>
+      <input type="text" id="q" maxlength="300" aria-label="Ask a question about religion or belief" placeholder="e.g. What happens after we die?">
+      <button class="search-btn" id="btn" onclick="compare()" aria-label="Compare religions">Sync</button>
     </div>
   </div>
 
@@ -103,7 +108,7 @@
     <div class="err-detail" id="errDetail"></div>
   </div>
 
-  <div class="section-label"><span id="traditionsLabel">Traditions</span><span class="section-q" id="sectionQ"></span></div>
+  <div class="section-label" aria-live="polite"><span id="traditionsLabel">Traditions</span><span class="section-q" id="sectionQ"></span></div>
   <div class="cards-wrap">
     <div id="religionCards"><div class="cards"><div class="card card-1">
           <div class="card-name">Christianity</div>
@@ -126,6 +131,7 @@
   <div class="cards-wrap" style="padding-top:0;">
     <div id="insightCards"><div class="bottom-row"><div class="card card-sim"><div class="card-name">Similarities</div><div class="card-body empty">What the traditions share</div></div><div class="card card-dif"><div class="card-name">Differences</div><div class="card-body empty">Where they diverge</div></div></div></div>
   </div>
+</main>
 
   <script>
     const STRINGS = {
