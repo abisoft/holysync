@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0052)file:///Users/mizuhotakahashi/Downloads/index_3.html -->
+<!-- saved from url=(0052)file:///Users/mizuhotakahashi/Downloads/index_8.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +7,11 @@
   <link href="./index_files/css2" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{background:#E8E4DC;font-family:'Inter','Noto Sans JP',sans-serif;}
+    body{background:#E8E4DC;font-family:'Helvetica Neue',Helvetica,Arial,'Noto Sans JP',sans-serif;}
     .nav{display:flex;align-items:center;justify-content:space-between;padding:22px 40px;}
     .logo{font-size:17px;font-weight:700;color:#1a1a1a;letter-spacing:-0.3px;}
-    .logo span{font-style:italic;font-weight:900;}
-    .logo-mark{width:36px;height:36px;background:#1a1a1a;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#E8E4DC;font-weight:900;flex-shrink:0;}
+    .logo span{font-style:normal;font-weight:900;}
+    .logo-mark{width:36px;height:36px;background:#1a1a1a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#E8E4DC;font-weight:900;flex-shrink:0;}
     .logo{display:flex;align-items:center;gap:10px;}
     .logo-name{font-size:17px;font-weight:700;color:#1a1a1a;letter-spacing:-0.3px;}
     .lang-switcher{display:flex;gap:4px;background:#ddd8ce;border-radius:20px;padding:3px;}
@@ -20,12 +20,13 @@
     .lang-btn:hover:not(.active){color:#1a1a1a;}
     .hero{padding:60px 40px 16px;text-align:center;}
     .hero h1{font-size:72px;font-weight:900;line-height:1.0;letter-spacing:-3px;color:#1a1a1a;margin-bottom:20px;max-width:700px;margin-left:auto;margin-right:auto;}
-    .hero h1 em{font-style:italic;font-family:"Lora",serif;}
+    .hero h1 em{font-style:italic;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
     .hero-desc{font-size:15px;color:#595959;max-width:460px;line-height:1.7;margin-bottom:32px;margin:0 auto 32px;}
-    .search-row{display:flex;gap:0;max-width:580px;background:#fff;border-radius:50px;overflow:hidden;border:1.5px solid #d0cbc2;margin:0 auto;}
+    .search-row{display:flex;gap:0;max-width:580px;background:#fff;border-radius:50px;overflow:hidden;border:1.5px solid #1a1a1a;margin:0 auto;}
     .search-row input{flex:1;padding:13px 22px;font-size:15px;background:transparent;border:none;color:#1a1a1a;outline:none;font-family:'Inter','Noto Sans JP',sans-serif;}
     .search-row input::placeholder{color:#bbb;}
-    .search-btn{padding:11px 22px;margin:3px;background:#1a1a1a;border:none;color:#E8E4DC;font-size:13px;font-weight:600;cursor:pointer;border-radius:50px;font-family:'Inter','Noto Sans JP',sans-serif;white-space:nowrap;}
+    .search-btn{padding:11px 24px;margin:3px;background:#1a1a1a;border:none;color:#E8E4DC;font-size:13px;font-weight:600;cursor:pointer;border-radius:50px;font-family:'Inter','Noto Sans JP',sans-serif;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+    .search-btn .arrow-icon{font-size:14px;display:inline-block;transform:rotate(0deg);}
     .search-btn:hover{background:#333;}
     .search-btn:disabled{opacity:0.5;cursor:not-allowed;}
     .search-btn:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;}
@@ -50,13 +51,14 @@
     .card-3{background:#9B8FD4;} .card-3 .card-name{color:#1E1050;}
     .card-4{background:#E05C5C;} .card-4 .card-name{color:#500808;}
     .card-5{background:#E8956A;} .card-5 .card-name{color:#501E04;}
-    .card-sim{background:#D8D4CC;} .card-sim .card-name{color:#2a2a2a;}
-    .card-dif{background:#D8D4CC;} .card-dif .card-name{color:#2a2a2a;}
+    .card-sim{background:transparent;border:1.5px solid #1a1a1a;} .card-sim .card-name{color:#1a1a1a;}
+    .card-dif{background:transparent;border:1.5px solid #1a1a1a;} .card-dif .card-name{color:#1a1a1a;}
     .bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
     .sk{border-radius:6px;animation:pulse 1.3s ease-in-out infinite;}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
     .sk-line{height:10px;margin-bottom:9px;}
     .sk-dark{background:rgba(0,0,0,0.15);}
+    .sk-outline{background:rgba(0,0,0,0.08);}
     .err{margin:0 40px 20px;padding:16px 20px;background:#FDE8E8;border:1.5px solid #F0B0B0;border-radius:16px;font-size:13px;color:#8B1A1A;}
     .err-title{font-weight:700;margin-bottom:3px;}
     .err-detail{font-family:monospace;font-size:11px;margin-top:6px;opacity:0.7;word-break:break-all;}
@@ -72,7 +74,7 @@
   </style>
 </head>
 <body>
-  <a href="file:///Users/mizuhotakahashi/Downloads/index_3.html#main-content" style="position:absolute;top:-40px;left:0;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:0 0 8px 0;font-size:13px;font-family:Inter,sans-serif;text-decoration:none;transition:top 0.2s;" onfocus="this.style.top=&#39;0&#39;" onblur="this.style.top=&#39;-40px&#39;">Skip to main content</a>
+  <a href="file:///Users/mizuhotakahashi/Downloads/index_8.html#main-content" style="position:absolute;top:-40px;left:0;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:0 0 8px 0;font-size:13px;font-family:Inter,sans-serif;text-decoration:none;transition:top 0.2s;" onfocus="this.style.top=&#39;0&#39;" onblur="this.style.top=&#39;-40px&#39;">Skip to main content</a>
 <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="logo">
       <div class="logo-mark">∞</div>
@@ -89,7 +91,7 @@
     <p class="hero-desc">Ask anything about life, meaning, or belief — see how the world's great religious traditions each respond, side by side.</p>
     <div class="search-row">
       <input type="text" id="q" maxlength="300" aria-label="Ask a question about religion or belief" placeholder="e.g. What happens after we die?">
-      <button class="search-btn" id="btn" onclick="compare()" aria-label="Compare religions">Sync</button>
+      <button class="search-btn" id="btn" onclick="compare()" aria-label="Compare religions">Sync <span class="arrow-icon">↗</span></button>
     </div>
   </div>
 
@@ -199,6 +201,7 @@
       currentLang = lang;
       document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
       document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+      document.getElementById('q').value = '';
       applyStrings();
       renderEmpty();
     }
@@ -220,7 +223,10 @@
     function ask(q){ document.getElementById('q').value=q; compare(); }
     function showErr(ti,m,d){ document.getElementById('errTitle').textContent=ti; document.getElementById('errMsg').textContent=m; document.getElementById('errDetail').textContent=d||''; document.getElementById('errBox').style.display='block'; }
     function hideErr(){ document.getElementById('errBox').style.display='none'; }
-    function skelCard(){ return `<div class="sk sk-dark sk-line" style="width:40%;margin-bottom:14px"></div><div class="sk sk-dark sk-line" style="width:92%"></div><div class="sk sk-dark sk-line" style="width:76%"></div><div class="sk sk-dark sk-line" style="width:84%"></div>`; }
+    function skelCard(variant){
+      const cls = variant === 'outline' ? 'sk-outline' : 'sk-dark';
+      return `<div class="sk ${cls} sk-line" style="width:40%;margin-bottom:14px"></div><div class="sk ${cls} sk-line" style="width:92%"></div><div class="sk ${cls} sk-line" style="width:76%"></div><div class="sk ${cls} sk-line" style="width:84%"></div>`;
+    }
 
     function renderEmpty(){
       document.getElementById('sectionQ').textContent='';
@@ -239,7 +245,7 @@
     function showSkeletons(){
       document.getElementById('sectionQ').textContent=t('syncing');
       document.getElementById('religionCards').innerHTML='<div class="cards">'+RELIGIONS.map(r=>`<div class="card ${r.card}">${skelCard()}</div>`).join('')+'</div>';
-      document.getElementById('insightCards').innerHTML='<div class="bottom-row"><div class="card card-sim">'+skelCard()+'</div><div class="card card-dif">'+skelCard()+'</div></div>';
+      document.getElementById('insightCards').innerHTML='<div class="bottom-row"><div class="card card-sim">'+skelCard('outline')+'</div><div class="card card-dif">'+skelCard('outline')+'</div></div>';
     }
 
     function renderResults(data,q){
@@ -290,12 +296,13 @@
         else showErr('Error',e.message||'Unknown error','');
         renderEmpty();
       }finally{
-        btn.disabled=false; btn.textContent=t('syncBtn');
+        btn.disabled=false; btn.innerHTML = t('syncBtn') + ' <span class="arrow-icon">&#8599;</span>';
       }
     }
 
     document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')compare();});
     applyStrings();
+    document.getElementById('btn').innerHTML = t('syncBtn') + ' <span class="arrow-icon">&#8599;</span>';
     renderEmpty();
   </script>
 
