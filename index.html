@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///Users/mizuhotakahashi/Downloads/index_14.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HolySync — Faith Explorer</title>
-  <link rel="icon" type="image/svg+xml" href="file:///Users/mizuhotakahashi/Downloads/favicon.svg">
-  <link href="./index_files/css2" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,700;0,900;1,700;1,900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
     body{background:#E8E4DC;font-family:'Helvetica Neue',Helvetica,Arial,'Noto Sans JP',sans-serif;}
@@ -75,15 +75,15 @@
   </style>
 </head>
 <body>
-  <a href="file:///Users/mizuhotakahashi/Downloads/index_14.html#main-content" style="position:absolute;top:-40px;left:0;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:0 0 8px 0;font-size:13px;font-family:Inter,sans-serif;text-decoration:none;transition:top 0.2s;" onfocus="this.style.top=&#39;0&#39;" onblur="this.style.top=&#39;-40px&#39;">Skip to main content</a>
+  <a href="#main-content" style="position:absolute;top:-40px;left:0;background:#1a1a1a;color:#fff;padding:8px 16px;border-radius:0 0 8px 0;font-size:13px;font-family:Inter,sans-serif;text-decoration:none;transition:top 0.2s;" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to main content</a>
 <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="logo">
-      <div class="logo-mark">∞</div>
+      <div class="logo-mark">&#8734;</div>
       <span class="logo-name"><span>Holy</span>Sync</span>
     </div>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang(&#39;en&#39;)" aria-label="Switch to English">EN</button>
-      <button class="lang-btn" onclick="setLang(&#39;ja&#39;)" aria-label="Switch to Japanese">日本語</button>
+      <button class="lang-btn active" onclick="setLang('en')" aria-label="Switch to English">EN</button>
+      <button class="lang-btn" onclick="setLang('ja')" aria-label="Switch to Japanese">日本語</button>
     </div>
   </nav>
 
@@ -91,18 +91,18 @@
     <h1>One question,<br><em>all</em> the answers.</h1>
     <p class="hero-desc">Ask anything about life, meaning, or belief — see how the world's great religious traditions each respond, side by side.</p>
     <div class="search-row">
-      <input type="text" id="q" maxlength="300" aria-label="Ask a question about religion or belief" placeholder="e.g. What happens after we die?">
-      <button class="search-btn" id="btn" onclick="compare()" aria-label="Compare religions">Sync <span class="arrow-icon">↗</span></button>
+      <input type="text" id="q" maxlength="300" aria-label="Ask a question about religion or belief"/>
+      <button class="search-btn" id="btn" onclick="compare()" aria-label="Compare religions"></button>
     </div>
   </div>
 
   <div class="pills">
-    <span class="pill-label" id="tryLabel">Try</span>
-    <span class="pill" id="pill1" onclick="ask(t(&#39;pill1&#39;))">Purpose of life</span>
-    <span class="pill" id="pill2" onclick="ask(t(&#39;pill2&#39;))">Treat others</span>
-    <span class="pill" id="pill3" onclick="ask(t(&#39;pill3&#39;))">After death</span>
-    <span class="pill" id="pill4" onclick="ask(t(&#39;pill4&#39;))">Prayer</span>
-    <span class="pill" id="pill5" onclick="ask(t(&#39;pill5&#39;))">Inner peace</span>
+    <span class="pill-label" id="tryLabel"></span>
+    <span class="pill" id="pill1" onclick="ask(t('pill1'))"></span>
+    <span class="pill" id="pill2" onclick="ask(t('pill2'))"></span>
+    <span class="pill" id="pill3" onclick="ask(t('pill3'))"></span>
+    <span class="pill" id="pill4" onclick="ask(t('pill4'))"></span>
+    <span class="pill" id="pill5" onclick="ask(t('pill5'))"></span>
   </div>
 
   <div id="errBox" style="display:none" class="err">
@@ -111,28 +111,13 @@
     <div class="err-detail" id="errDetail"></div>
   </div>
 
-  <div class="section-label" aria-live="polite"><span id="traditionsLabel">Traditions</span><span class="section-q" id="sectionQ"></span></div>
+  <div class="section-label" aria-live="polite"><span id="traditionsLabel"></span><span class="section-q" id="sectionQ"></span></div>
   <div class="cards-wrap">
-    <div id="religionCards"><div class="cards"><div class="card card-1">
-          <div class="card-name">Christianity</div>
-          <div class="card-body empty">Ask a question to explore</div>
-        </div><div class="card card-2">
-          <div class="card-name">Islam</div>
-          <div class="card-body empty">Ask a question to explore</div>
-        </div><div class="card card-3">
-          <div class="card-name">Judaism</div>
-          <div class="card-body empty">Ask a question to explore</div>
-        </div><div class="card card-4">
-          <div class="card-name">Hinduism</div>
-          <div class="card-body empty">Ask a question to explore</div>
-        </div><div class="card card-5">
-          <div class="card-name">Buddhism</div>
-          <div class="card-body empty">Ask a question to explore</div>
-        </div></div></div>
+    <div id="religionCards"></div>
   </div>
-  <div class="section-label" id="insightsLabel" style="margin-top:28px;margin-bottom:16px;">Insights</div>
+  <div class="section-label" id="insightsLabel" style="margin-top:28px;margin-bottom:16px;"></div>
   <div class="cards-wrap" style="padding-top:0;">
-    <div id="insightCards"><div class="bottom-row"><div class="card card-sim"><div class="card-name">Similarities</div><div class="card-body empty">What the traditions share</div></div><div class="card card-dif"><div class="card-name">Differences</div><div class="card-body empty">Where they diverge</div></div></div></div>
+    <div id="insightCards"></div>
   </div>
 </main>
 
@@ -306,6 +291,5 @@
     document.getElementById('btn').innerHTML = t('syncBtn') + ' <span class="arrow-icon">&#8599;</span>';
     renderEmpty();
   </script>
-
-
-</body></html>
+</body>
+</html>
