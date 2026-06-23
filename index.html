@@ -434,8 +434,23 @@
           scrEl.className = 'scripture';
           const MAX_S = 40;
           const sWords = scripture.text.trim().split(' ');
-          const shortS = sWords.length > MAX_S ? sWords.slice(0,MAX_S).join(' ')+'…' : scripture.text;
-          scrEl.innerHTML = `"${shortS}"<div class="scripture-ref">📖 ${scripture.ref}</div>`;
+          const isLong = sWords.length > MAX_S;
+          const shortS = isLong ? sWords.slice(0,MAX_S).join(' ')+'…' : scripture.text;
+          const fullS = scripture.text;
+          const ref = scripture.ref;
+          let expanded = false;
+          function renderScripture(){
+            const txt = expanded ? fullS : shortS;
+            const btnLabel = expanded ? 'Read less' : 'Read more';
+            scrEl.innerHTML = '"'+txt+'"<div class="scripture-ref">📖 '+ref+'</div>'+(isLong?'<button class="read-more-btn" style="display:block;margin-top:6px;">'+btnLabel+'</button>':'');
+            if(isLong){
+              scrEl.querySelector('.read-more-btn').onclick = function(){
+                expanded = !expanded;
+                renderScripture();
+              };
+            }
+          }
+          renderScripture();
         } else {
           scrEl.remove();
         }
