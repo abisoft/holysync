@@ -49,7 +49,7 @@
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
     .card{border-radius:20px;padding:26px 24px 32px;min-height:100px;}
     .card-name{font-size:20px;font-weight:700;margin-bottom:24px;color:#1a1a1a;}
-    .card-body{font-size:13px;line-height:1.5;color:#222222;opacity:1;}
+    .card-body{font-size:13px;line-height:1.5;color:#222222;opacity:1;overflow:hidden;}
     .card-body.empty{opacity:0.35;font-style:italic;}
     .card-1{background:#8EAF5A;} .card-1 .card-name{color:#1E3A08;}
     .card-2{background:#D4C84A;} .card-2 .card-name{color:#4A4000;}
@@ -69,7 +69,7 @@
     .share-btn:hover{background:#1a1a1a;color:#E8E4DC;}
     .share-btn.copied{background:#1a1a1a;color:#E8E4DC;}
     .card-body-wrap{position:relative;}
-    .card-body-wrap.collapsed .card-body{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+    .card-body-wrap.collapsed .card-body{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;max-height:none;}
     .card-body-wrap.collapsed::after{content:'';position:absolute;bottom:20px;left:0;right:0;height:32px;background:linear-gradient(transparent,var(--fade-color));pointer-events:none;}
     .read-more-btn{display:none;font-size:11px;font-weight:600;letter-spacing:0.3px;cursor:pointer;margin-top:6px;text-decoration:underline;text-underline-offset:2px;background:none;border:none;padding:0;font-family:inherit;color:inherit;opacity:0.7;}
     .read-more-btn:hover{opacity:1;}
@@ -174,7 +174,7 @@
         parseErr: 'Parse error',         parseErrMsg: 'Could not read AI response.',
         apiErr: 'API error',             httpErr: 'Worker error',
         // System prompt: force English answers
-        systemPrompt: 'You are a neutral religion educator. The user may ask in any language, but you MUST respond entirely in English. Return ONLY raw JSON — no markdown, no backticks — with exactly these keys: christianity, islam, judaism, hinduism, buddhism, similarities, differences. Max 80 words per key.',
+        systemPrompt: 'You are a neutral religion educator. Return ONLY raw JSON — no markdown, no backticks — with exactly these keys: christianity, islam, judaism, hinduism, buddhism, similarities, differences. STRICT LIMIT: maximum 40 words per key. Be concise. Respond in English.',
       },
       ja: {
         placeholder: '例：死後、人はどうなるのか？',
@@ -196,7 +196,7 @@
         parseErr: '解析エラー',            parseErrMsg: 'AIの応答を読み込めませんでした。',
         apiErr: 'APIエラー',              httpErr: 'サーバーエラー',
         // System prompt: force Japanese answers regardless of question language
-        systemPrompt: 'あなたは中立的な宗教教育者です。ユーザーがどの言語で質問しても、必ず日本語で回答してください。マークダウンやバッククォートなしで、以下のキーを持つ生のJSONのみを返してください：christianity, islam, judaism, hinduism, buddhism, similarities, differences。各フィールドは最大80語。必ず日本語で回答すること。',
+        systemPrompt: 'あなたは中立的な宗教教育者です。必ず日本語で回答してください。マークダウンやバッククォートなしで、以下のキーを持つ生のJSONのみを返してください：christianity, islam, judaism, hinduism, buddhism, similarities, differences。各フィールドは厳密に40語以内。簡潔に。',
       }
     };
 
@@ -283,20 +283,43 @@
           `<div class="card card-dif" id="c-differences"><div class="card-name">${t('differences')}</div><div class="card-body-wrap collapsed"><div class="card-body"></div><button class="read-more-btn" onclick="toggleReadMore(this)">Read more</button></div></div>`+
         '</div>';
       const items=[...RELIGIONS.map(r=>({id:'c-'+r.key,text:data[r.key]||''})),{id:'c-similarities',text:data.similarities||''},{id:'c-differences',text:data.differences||''}];
+      // Hard truncate to 60 words max per card
+      function truncate(text, maxWords=60){
+        const words = text.trim().split(/\s+/);
+        if(words.length <= maxWords) return {short: text, full: null};
+        return {
+          short: words.slice(0, maxWords).join(' ') + '…',
+          full: text
+        };
+      }
+
       items.forEach((item,i)=>setTimeout(()=>{
         const el=document.getElementById(item.id);
         if(!el) return;
         const body = el.querySelector('.card-body');
         const wrap = el.querySelector('.card-body-wrap');
         const btn = el.querySelector('.read-more-btn');
-        body.textContent = item.text;
-        // Check if text overflows — if not, hide the button
-        setTimeout(()=>{
-          if(body.scrollHeight <= body.clientHeight + 5){
-            wrap.classList.remove('collapsed');
-            if(btn) btn.style.display='none';
-          }
-        }, 50);
+        const {short, full} = truncate(item.text);
+        if(full){
+          // Text is long — show truncated with read more
+          body.textContent = short;
+          btn.style.display = 'block';
+          btn.onclick = function(){
+            if(body.textContent === short){
+              body.textContent = full;
+              btn.textContent = 'Read less';
+            } else {
+              body.textContent = short;
+              btn.textContent = 'Read more';
+            }
+          };
+          wrap.classList.remove('collapsed');
+        } else {
+          // Text is short — show as is, no button
+          body.textContent = item.text;
+          wrap.classList.remove('collapsed');
+          if(btn) btn.style.display='none';
+        }
       },i*120));
       // Load scripture quotes after cards render
       setTimeout(()=>loadScriptures(), 800);
