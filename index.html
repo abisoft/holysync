@@ -29,6 +29,10 @@
     .search-btn{padding:11px 24px;margin:3px;background:#1a1a1a;border:none;color:#E8E4DC;font-size:13px;font-weight:600;cursor:pointer;border-radius:50px;font-family:'Inter','Noto Sans JP',sans-serif;white-space:nowrap;display:flex;align-items:center;gap:6px;}
     .search-btn .arrow-icon{font-size:14px;display:inline-block;transform:rotate(0deg);}
     .search-btn:hover{background:#333;}
+    .mic-btn{width:44px;height:44px;margin:3px 0 3px 0;border:none;background:transparent;color:#1a1a1a;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all 0.2s;flex-shrink:0;}
+    .mic-btn:hover{background:#f0ece4;}
+    .mic-btn.listening{background:#ff3b30;color:#fff;animation:micpulse 1s ease-in-out infinite;}
+    @keyframes micpulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
     .search-btn:disabled{opacity:0.5;cursor:not-allowed;}
     .search-btn:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;}
     .lang-btn:focus-visible{outline:2px solid #1a1a1a;outline-offset:2px;}
@@ -60,6 +64,13 @@
     .sk-line{height:10px;margin-bottom:9px;}
     .sk-dark{background:rgba(0,0,0,0.15);}
     .sk-outline{background:rgba(0,0,0,0.08);}
+    .share-bar{display:none;padding:0 40px;margin-bottom:24px;}
+    .share-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border:1.5px solid #1a1a1a;border-radius:50px;background:transparent;font-size:12px;font-weight:500;color:#1a1a1a;cursor:pointer;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;transition:all 0.2s;}
+    .share-btn:hover{background:#1a1a1a;color:#E8E4DC;}
+    .share-btn.copied{background:#1a1a1a;color:#E8E4DC;}
+    .scripture{margin-top:14px;padding-top:12px;border-top:1px solid rgba(0,0,0,0.12);font-size:11px;line-height:1.6;font-style:italic;opacity:0.75;}
+    .scripture-ref{font-style:normal;font-weight:600;font-size:10px;letter-spacing:0.5px;margin-top:4px;opacity:0.6;}
+    .scripture-loading{opacity:0.4;font-size:11px;font-style:italic;}
     .err{margin:0 40px 20px;padding:16px 20px;background:#FDE8E8;border:1.5px solid #F0B0B0;border-radius:16px;font-size:13px;color:#8B1A1A;}
     .err-title{font-weight:700;margin-bottom:3px;}
     .err-detail{font-family:monospace;font-size:11px;margin-top:6px;opacity:0.7;word-break:break-all;}
@@ -103,6 +114,12 @@
     <span class="pill" id="pill3" onclick="ask(t('pill3'))"></span>
     <span class="pill" id="pill4" onclick="ask(t('pill4'))"></span>
     <span class="pill" id="pill5" onclick="ask(t('pill5'))"></span>
+  </div>
+
+  <div class="share-bar" id="shareBar">
+    <button class="share-btn" id="shareBtn" onclick="shareResult()">
+      <span id="shareBtnText">🔗 Share this result</span>
+    </button>
   </div>
 
   <div id="errBox" style="display:none" class="err">
@@ -215,6 +232,7 @@
     }
 
     function renderEmpty(){
+      document.getElementById('shareBar').style.display='none';
       document.getElementById('sectionQ').textContent='';
       document.getElementById('religionCards').innerHTML=
         '<div class="cards">'+RELIGIONS.map(r=>`<div class="card ${r.card}">
@@ -235,6 +253,7 @@
     }
 
     function renderResults(data,q){
+      document.getElementById('shareBar').style.display='block';
       document.getElementById('sectionQ').textContent='— "'+q+'"';
       document.getElementById('religionCards').innerHTML=
         '<div class="cards">'+RELIGIONS.map(r=>`<div class="card ${r.card}" id="c-${r.key}">
@@ -248,6 +267,8 @@
         '</div>';
       const items=[...RELIGIONS.map(r=>({id:'c-'+r.key,text:data[r.key]||''})),{id:'c-similarities',text:data.similarities||''},{id:'c-differences',text:data.differences||''}];
       items.forEach((item,i)=>setTimeout(()=>{const el=document.getElementById(item.id);if(el)el.querySelector('.card-body').textContent=item.text;},i*120));
+      // Load scripture quotes after cards render
+      setTimeout(()=>loadScriptures(), 800);
     }
 
     async function compare(){
@@ -286,10 +307,153 @@
       }
     }
 
+    // Scripture APIs
+    async function fetchScripture(religion){
+      try{
+        if(religion === 'christianity'){
+          const verses = ['john+3:16','romans+8:28','matthew+22:39','1+corinthians+13:4','proverbs+3:5'];
+          const v = verses[Math.floor(Math.random()*verses.length)];
+          const r = await fetch(`https://bible-api.com/${v}`);
+          const d = await r.json();
+          return { text: d.text.trim(), ref: d.reference, source:'Bible' };
+        }
+        if(religion === 'islam'){
+          const ayahs = ['2:255','2:286','3:185','49:13','2:177'];
+          const a = ayahs[Math.floor(Math.random()*ayahs.length)];
+          const r = await fetch(`https://api.alquran.cloud/v1/ayah/${a}/en.asad`);
+          const d = await r.json();
+          return { text: d.data.text, ref:`Quran ${a}`, source:'Quran' };
+        }
+        if(religion === 'judaism'){
+          const texts = ['Pirkei_Avot.1.2','Pirkei_Avot.2.4','Pirkei_Avot.3.14','Pirkei_Avot.1.14'];
+          const t = texts[Math.floor(Math.random()*texts.length)];
+          const r = await fetch(`https://www.sefaria.org/api/texts/${t}`);
+          const d = await r.json();
+          let text = d.text;
+          if(Array.isArray(text)) text = text.join(' ');
+          text = text.replace(/<[^>]+>/g,'').trim();
+          return { text, ref: d.ref, source:'Sefaria' };
+        }
+        if(religion === 'hinduism'){
+          const sloks = [{c:'2',v:'47'},{c:'2',v:'48'},{c:'4',v:'7'},{c:'9',v:'22'},{c:'18',v:'66'}];
+          const s = sloks[Math.floor(Math.random()*sloks.length)];
+          const r = await fetch(`https://vedicscriptures.github.io/slok/${s.c}/${s.v}/`);
+          const d = await r.json();
+          const text = d.tej?.et || d.siva?.et || d.purohit?.et || '';
+          return { text: text.trim(), ref:`Bhagavad Gita ${s.c}.${s.v}`, source:'Bhagavad Gita' };
+        }
+        if(religion === 'buddhism'){
+          const suttas = [
+            {text:"All conditioned things are impermanent. When one sees this with wisdom, one turns away from suffering.", ref:"Dhammapada 277"},
+            {text:"Hatred is never appeased by hatred in this world. By non-hatred alone is hatred appeased. This is a law eternal.", ref:"Dhammapada 5"},
+            {text:"Your work is to discover your work and then with all your heart to give yourself to it.", ref:"Dhammapada 166"},
+            {text:"Peace comes from within. Do not seek it without.", ref:"Dhammapada"},
+            {text:"Three things cannot be long hidden: the sun, the moon, and the truth.", ref:"Dhammapada"},
+          ];
+          const s = suttas[Math.floor(Math.random()*suttas.length)];
+          return { text: s.text, ref: s.ref, source:'Dhammapada' };
+        }
+      } catch(e){ return null; }
+      return null;
+    }
+
+    async function loadScriptures(){
+      const religions = ['christianity','islam','judaism','hinduism','buddhism'];
+      for(const rel of religions){
+        const el = document.getElementById('c-'+rel);
+        if(!el) continue;
+        // Add loading placeholder
+        const scrEl = document.createElement('div');
+        scrEl.className = 'scripture scripture-loading';
+        scrEl.textContent = '📖 Loading scripture...';
+        el.appendChild(scrEl);
+        // Fetch and update
+        const scripture = await fetchScripture(rel);
+        if(scripture && scripture.text){
+          scrEl.className = 'scripture';
+          scrEl.innerHTML = `"${scripture.text}"<div class="scripture-ref">📖 ${scripture.ref}</div>`;
+        } else {
+          scrEl.remove();
+        }
+      }
+    }
+
     document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')compare();});
+
+    // Web Speech API
+    let recognition = null;
+    let isListening = false;
+
+    function toggleMic(){
+      if(!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)){
+        alert('Voice input is not supported in this browser. Try Chrome or Safari.');
+        return;
+      }
+      if(isListening){ stopMic(); return; }
+      startMic();
+    }
+
+    function startMic(){
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = currentLang === 'ja' ? 'ja-JP' : 'en-US';
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        isListening = true;
+        document.getElementById('micBtn').classList.add('listening');
+        document.getElementById('micBtn').title = 'Listening... click to stop';
+        document.getElementById('q').placeholder = currentLang === 'ja' ? '聞いています...' : 'Listening...';
+      };
+
+      recognition.onresult = (e) => {
+        const transcript = Array.from(e.results).map(r=>r[0].transcript).join('');
+        document.getElementById('q').value = transcript;
+        if(e.results[e.results.length-1].isFinal){
+          stopMic();
+          compare();
+        }
+      };
+
+      recognition.onerror = () => stopMic();
+      recognition.onend = () => stopMic();
+      recognition.start();
+    }
+
+    function stopMic(){
+      if(recognition) recognition.stop();
+      isListening = false;
+      document.getElementById('micBtn').classList.remove('listening');
+      document.getElementById('micBtn').title = 'Speak your question';
+      document.getElementById('q').placeholder = t('placeholder');
+    }
     applyStrings();
     document.getElementById('btn').innerHTML = t('syncBtn') + ' <span class="arrow-icon">&#8599;</span>';
     renderEmpty();
+
+    // Auto-run question from URL param
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlQ = urlParams.get('q');
+    if(urlQ){
+      document.getElementById('q').value = urlQ;
+      compare();
+    }
+
+    function shareResult(){
+      const q = document.getElementById('q').value.trim();
+      if(!q) return;
+      const url = window.location.origin + window.location.pathname + '?q=' + encodeURIComponent(q);
+      navigator.clipboard.writeText(url).then(()=>{
+        const btn = document.getElementById('shareBtnText');
+        btn.textContent = '✓ Link copied!';
+        document.getElementById('shareBtn').classList.add('copied');
+        setTimeout(()=>{
+          btn.textContent = '🔗 Share this result';
+          document.getElementById('shareBtn').classList.remove('copied');
+        }, 2500);
+      });
+    }
   </script>
 </body>
 </html>
