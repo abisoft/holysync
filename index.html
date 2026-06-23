@@ -291,6 +291,7 @@
         const btn = el.querySelector('.read-more-btn');
         const words = (item.text||'').trim().split(' ');
         const MAX = 55;
+        console.log('Card:', item.id, 'Words:', words.length, 'Will truncate:', words.length > MAX);
         if(words.length > MAX){
           const shortText = words.slice(0,MAX).join(' ') + '…';
           const fullText = item.text;
@@ -431,7 +432,10 @@
         const scripture = await fetchScripture(rel);
         if(scripture && scripture.text){
           scrEl.className = 'scripture';
-          scrEl.innerHTML = `"${scripture.text}"<div class="scripture-ref">📖 ${scripture.ref}</div>`;
+          const MAX_S = 40;
+          const sWords = scripture.text.trim().split(' ');
+          const shortS = sWords.length > MAX_S ? sWords.slice(0,MAX_S).join(' ')+'…' : scripture.text;
+          scrEl.innerHTML = `"${shortS}"<div class="scripture-ref">📖 ${scripture.ref}</div>`;
         } else {
           scrEl.remove();
         }
