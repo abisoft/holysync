@@ -283,43 +283,36 @@
           `<div class="card card-dif" id="c-differences"><div class="card-name">${t('differences')}</div><div class="card-body-wrap collapsed"><div class="card-body"></div><button class="read-more-btn" onclick="toggleReadMore(this)">Read more</button></div></div>`+
         '</div>';
       const items=[...RELIGIONS.map(r=>({id:'c-'+r.key,text:data[r.key]||''})),{id:'c-similarities',text:data.similarities||''},{id:'c-differences',text:data.differences||''}];
-      // Hard truncate to 60 words max per card
-      function truncate(text, maxWords=60){
-        const words = text.trim().split(/\s+/);
-        if(words.length <= maxWords) return {short: text, full: null};
-        return {
-          short: words.slice(0, maxWords).join(' ') + '…',
-          full: text
-        };
-      }
-
       items.forEach((item,i)=>setTimeout(()=>{
         const el=document.getElementById(item.id);
         if(!el) return;
         const body = el.querySelector('.card-body');
         const wrap = el.querySelector('.card-body-wrap');
         const btn = el.querySelector('.read-more-btn');
-        const {short, full} = truncate(item.text);
-        if(full){
-          // Text is long — show truncated with read more
-          body.textContent = short;
-          btn.style.display = 'block';
-          btn.onclick = function(){
-            if(body.textContent === short){
-              body.textContent = full;
-              btn.textContent = 'Read less';
-            } else {
-              body.textContent = short;
-              btn.textContent = 'Read more';
-            }
-          };
-          wrap.classList.remove('collapsed');
+        const words = (item.text||'').trim().split(' ');
+        const MAX = 55;
+        if(words.length > MAX){
+          const shortText = words.slice(0,MAX).join(' ') + '…';
+          const fullText = item.text;
+          body.textContent = shortText;
+          if(btn){
+            btn.style.display='block';
+            btn.textContent='Read more';
+            btn.onclick=function(){
+              if(body.textContent===shortText){
+                body.textContent=fullText;
+                btn.textContent='Read less';
+              } else {
+                body.textContent=shortText;
+                btn.textContent='Read more';
+              }
+            };
+          }
         } else {
-          // Text is short — show as is, no button
           body.textContent = item.text;
-          wrap.classList.remove('collapsed');
           if(btn) btn.style.display='none';
         }
+        if(wrap) wrap.classList.remove('collapsed');
       },i*120));
       // Load scripture quotes after cards render
       setTimeout(()=>loadScriptures(), 800);
